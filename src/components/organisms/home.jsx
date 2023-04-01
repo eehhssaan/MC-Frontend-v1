@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, Box } from "rebass/styled-components";
 
-function Home() {
+const Home = () => {
   return (
     <Box
       sx={{
@@ -12,6 +12,6 @@ function Home() {
       <Text>This page is under development</Text>
     </Box>
   );
-}
+};
 
 export default Home;
