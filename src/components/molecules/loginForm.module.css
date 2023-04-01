@@ -1,0 +1,17 @@
+.inputBox {
+  outline: none;
+  border-radius: 5px;
+  margin: 5px !important;
+  background: #e8e9eb !important;
+  border: 0 !important;
+  height: 48px;
+}
+
+.inputBox::placeholder {
+  color: rgb(144, 148, 148);
+}
+
+.inputBox:focus {
+  border: 2px solid #38ae99 !important;
+  background: white !important;
+}
