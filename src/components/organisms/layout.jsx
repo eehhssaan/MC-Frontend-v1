@@ -1,11 +1,18 @@
 import React from "react";
+import { Box } from "rebass/styled-components";
 
 function Layout({ children }) {
   return (
-    <div>
-      <h1>Hello World</h1>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       {children}
-    </div>
+    </Box>
   );
 }
 

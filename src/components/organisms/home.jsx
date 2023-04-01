@@ -1,10 +1,16 @@
 import React from "react";
+import { Text, Box } from "rebass/styled-components";
 
 function Home() {
   return (
-    <div>
-      <h1>This is my home</h1>
-    </div>
+    <Box
+      sx={{
+        textAlign: "center",
+      }}
+    >
+      <Text>Welcome to the home page </Text>
+      <Text>This page is under development</Text>
+    </Box>
   );
 }
 
