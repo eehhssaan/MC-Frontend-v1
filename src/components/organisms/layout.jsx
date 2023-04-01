@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "rebass/styled-components";
 
-function Layout({ children }) {
+const Layout = ({ children }) => {
   return (
     <Box
       sx={{
@@ -14,6 +14,6 @@ function Layout({ children }) {
       {children}
     </Box>
   );
-}
+};
 
 export default Layout;

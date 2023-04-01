@@ -1,7 +1,7 @@
 import Home from "../components/organisms/home";
 import Layout from "../components/organisms/layout";
 
-function HomePage() {
+const HomePage = () => {
   return (
     <>
       <Layout>
@@ -9,7 +9,7 @@ function HomePage() {
       </Layout>
     </>
   );
-}
+};
 
 export async function getStaticProps() {
   return {
