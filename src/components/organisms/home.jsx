@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, Box } from "rebass/styled-components";
+import useAdmin from "../../context/use-admin.hook";
 
 const Home = () => {
   return (
