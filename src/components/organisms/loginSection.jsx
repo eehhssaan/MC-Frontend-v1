@@ -1,10 +1,18 @@
-import React from "react";
 import { Box } from "rebass/styled-components";
+import React, { useContext, useState } from "react";
 
 // internal imports
+import { appContext } from "../../context/app.context";
 import LoginForm from "../molecules/loginForm";
 
 const Login = () => {
+  const { loginAdmin } = useContext(appContext);
+
+  const onLoginSubmit = async ({ email, password }) => {
+    const resp = await loginAdmin({ email, password });
+    console.log(await resp.json());
+  };
+
   return (
     <>
       <Box
@@ -17,7 +25,7 @@ const Login = () => {
           width: "100%",
         }}
       >
-        <LoginForm />
+        <LoginForm onLoginSubmit={onLoginSubmit} />
       </Box>
     </>
   );

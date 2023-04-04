@@ -21,6 +21,7 @@ const Button = ({
         height,
         width,
         color: text,
+        cursor: "pointer",
       }}
     >
       {children}

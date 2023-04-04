@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Text } from "rebass/styled-components";
 import { Input } from "@rebass/forms";
 
+// internal
 import styles from "./loginForm.module.css";
 import Button from "../atoms/button";
 
-const LoginForm = () => {
+const LoginForm = ({ onLoginSubmit }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onLoginSubmit({ email, password });
+  };
+
   return (
     <Box
-      as='form'
-      onSubmit={(e) => e.preventDefault()}
       py={3}
       sx={{
         backgroundColor: "white",
@@ -19,48 +26,58 @@ const LoginForm = () => {
         display: "flex",
         justifyContent: "center",
         flexDirection: "column",
-
         alignItems: "center",
       }}
     >
-      {/* logo */}
-      <Text
-        sx={{
-          color: "#38ae99",
-          fontWeight: "bold",
-          fontSize: "40px",
-        }}
-      >
-        LOGO
-      </Text>
+      <Box as='form' onSubmit={(e) => handleSubmit(e)} width='100%'>
+        <Text
+          sx={{
+            color: "#38ae99",
+            fontWeight: "bold",
+            fontSize: "40px",
+            textAlign: "center",
+          }}
+        >
+          LOGO
+        </Text>
 
-      <Text
-        sx={{
-          mb: "10%",
-          textAlign: "center",
-        }}
-      >
-        Please Login to the platfrom
-      </Text>
-      <Input
-        className={styles.inputBox}
-        name='username'
-        placeholder='Username'
-      />
-      <Input
-        className={styles.inputBox}
-        name='password'
-        placeholder='Password'
-      />
-      <Box
-        sx={{
-          height: "40px",
-        }}
-      />
+        <Text
+          sx={{
+            mb: "10%",
+            textAlign: "center",
+          }}
+        >
+          Please Login to the platfrom
+        </Text>
+        <Input
+          id='username'
+          className={styles.inputBox}
+          name='username'
+          type='text'
+          value={email}
+          placeholder='Username'
+          onChange={(event) => setEmail(event.target.value)}
+        />
 
-      <Button color='#38ae99' width='100%' height='48px' radius='4px'>
-        LOGIN
-      </Button>
+        <Input
+          id='password'
+          className={styles.inputBox}
+          name='password'
+          type='password'
+          value={password}
+          placeholder='Password'
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        <Button
+          color='#38ae99'
+          width='100%'
+          height='48px'
+          radius='4px'
+          type='submit'
+        >
+          LOGIN
+        </Button>
+      </Box>
     </Box>
   );
 };
