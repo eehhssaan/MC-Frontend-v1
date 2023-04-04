@@ -22,6 +22,7 @@ export const AppProvider = ({ children }) => {
     const resp = await fetch(
       `${process.env.NEXT_PUBLIC_APP_URL}/api/admin/login`,
       {
+        credentials: "include",
         method: "POST",
         redirect: "manual",
         headers: {
@@ -33,10 +34,24 @@ export const AppProvider = ({ children }) => {
     return resp;
   };
 
+  const getAllUsers = async () => {
+    const resp = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/`, {
+      credentials: "include",
+      method: "GET",
+      redirect: "manual",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return resp;
+  };
+
   return (
     <appContext.Provider
       value={{
         createAdmin,
+        getAllUsers,
         loginAdmin,
       }}
     >

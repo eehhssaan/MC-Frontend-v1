@@ -1,5 +1,6 @@
 import { Box } from "rebass/styled-components";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
+import { useRouter } from "next/router";
 
 // internal imports
 import { appContext } from "../../context/app.context";
@@ -7,10 +8,20 @@ import LoginForm from "../molecules/loginForm";
 
 const Login = () => {
   const { loginAdmin } = useContext(appContext);
+  const router = useRouter();
 
   const onLoginSubmit = async ({ email, password }) => {
-    const resp = await loginAdmin({ email, password });
-    console.log(await resp.json());
+    if (email && password) {
+      loginAdmin({ email, password })
+        .then((resp) => {
+          if (resp.ok) {
+            router.push("/dashboard");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
