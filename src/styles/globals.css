@@ -88,8 +88,8 @@ body {
 html,
 body,
 body > div:first-child,
-div#__next,
-div#__next > div {
+#__next,
+div#__next {
   height: 100%;
 }
 

@@ -27,6 +27,7 @@ const LoginForm = ({ onLoginSubmit }) => {
         justifyContent: "center",
         flexDirection: "column",
         alignItems: "center",
+        borderRadius: "8px",
       }}
     >
       <Box as='form' onSubmit={(e) => handleSubmit(e)} width='100%'>
