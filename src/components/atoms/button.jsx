@@ -10,6 +10,8 @@ const Button = ({
   radius,
   width,
   text,
+  fontSize,
+  margin,
 }) => {
   return (
     <ReBassButton
@@ -20,8 +22,13 @@ const Button = ({
         borderRadius: radius,
         height,
         width,
+        margin,
         color: text,
+        display: "flex",
         cursor: "pointer",
+        justifyContent: "center",
+        alignItems: "center",
+        fontSize,
       }}
     >
       {children}
