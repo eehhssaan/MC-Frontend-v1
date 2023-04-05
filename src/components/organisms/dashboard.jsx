@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Text } from "rebass";
+import { Box, Text } from "rebass/styled-components";
 
 // internal imports
 import { appContext } from "../../context/app.context";
@@ -32,10 +32,32 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <>
-      <Text>Dashboard</Text>
+    <Box
+      sx={{
+        margin: "40px",
+      }}
+    >
+      <Text
+        sx={{
+          width: "131px",
+          height: "32px",
+          left: "328px",
+          top: "112px",
+          fontFamily: "Open Sans",
+          fontStyle: "normal",
+          fontWeight: 600,
+          fontSize: "24px",
+          lineHeight: "32px",
+          letterSpacing: "-0.02em",
+          color: "#1A1A1A",
+          marginBottom: "38px",
+          marginTop: "40px",
+        }}
+      >
+        User Profile
+      </Text>
       <UserProfileTable userData={userData} />
-    </>
+    </Box>
   );
 };
 
