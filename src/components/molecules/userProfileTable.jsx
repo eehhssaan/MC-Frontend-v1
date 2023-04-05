@@ -19,7 +19,6 @@ const UserProfileTable = ({ userData }) => {
       sx={{
         boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
         width: "100%",
-        borderRadius: "10px !important",
         overflow: "hidden !important",
       }}
     >
@@ -41,62 +40,65 @@ const UserProfileTable = ({ userData }) => {
             Phone No.
           </Box>
           <Box flex={1} sx={itemStyle}>
-            Created At
-          </Box>
-          <Box flex={1} sx={itemStyle}>
             Created By
           </Box>
+          <Box flex={1} sx={itemStyle}>
+            Created At
+          </Box>
+
           <Box flex={1} sx={itemStyle}>
             Action
           </Box>
         </Flex>
       </Box>
-      {userData.items?.slice(startIndex, endIndex).map(
-        (e) => (
-          <Flex key={e.item._id} sx={rowStyle}>
-            <Box flex={1} sx={itemStyle}>
-              {e.item.firstname}
-            </Box>
-            <Box flex={1} sx={itemStyle}>
-              {e.item.lastname}
-            </Box>
-            <Box flex={1} sx={itemStyle}>
-              {e.item.gender}
-            </Box>
-            <Box flex={2} sx={itemStyle}>
-              {e.item.email}
-            </Box>
-            <Box flex={1} sx={itemStyle}>
-              {e.item.phone}
-            </Box>
-            {/* <Box flex={2} sx={itemStyle}>
+      {userData &&
+        userData.items?.slice(startIndex, endIndex).map(
+          (e) => (
+            <Flex key={e.item._id} sx={rowStyle}>
+              <Box flex={1} sx={itemStyle}>
+                {e.item.firstname}
+              </Box>
+              <Box flex={1} sx={itemStyle}>
+                {e.item.lastname}
+              </Box>
+              <Box flex={1} sx={itemStyle}>
+                {e.item.gender}
+              </Box>
+              <Box flex={2} sx={itemStyle}>
+                {e.item.email}
+              </Box>
+              <Box flex={1} sx={itemStyle}>
+                {e.item.phone}
+              </Box>
+              {/* <Box flex={2} sx={itemStyle}>
               {e.item}
             </Box> */}
-            <Box flex={1} sx={itemStyle}>
-              {new Date(e.createdAt).toLocaleDateString()}
-            </Box>
+              <Box flex={1} sx={itemStyle}>
+                {e.item.createrName}
+              </Box>
+              <Box flex={1} sx={itemStyle}>
+                {new Date(e.createdAt).toLocaleDateString()}
+              </Box>
 
-            <Box flex={1} sx={itemStyle}>
-              {e.item.createdBy}
-            </Box>
-
-            <Box flex={1} sx={{ width: "10%" }}>
-              <CiCircleMore />
-            </Box>
-          </Flex>
-        )
-        // console.log(e.item.email)
-      )}
+              <Box flex={1} sx={{ width: "10%" }}>
+                <CiCircleMore />
+              </Box>
+            </Flex>
+          )
+          // console.log(e.item.email)
+        )}
       <Box p={4} bg='white' sx={{ borderTop: "1px solid #E8E9EB" }}>
         <Flex
           justifyContent='end'
           sx={{ color: "#5A6074" }}
           alignItems='center'
         >
-          <Text>
-            {startIndex + 1}-{Math.min(endIndex, userData.items?.length)} of{" "}
-            {userData.items?.length}
-          </Text>
+          {userData && (
+            <Text>
+              {startIndex + 1}-{Math.min(endIndex, userData.items?.length)} of{" "}
+              {userData.items?.length}
+            </Text>
+          )}
           <Flex>
             <Box
               sx={paginationStyle(currentPage > 1)}
@@ -105,30 +107,34 @@ const UserProfileTable = ({ userData }) => {
               <FaChevronLeft />
             </Box>
           </Flex>
-          <Flex>
-            {Array.from(
-              { length: Math.ceil(userData.items?.length / pageSize) },
-              (_, index) => (
-                <Box
-                  key={index}
-                  sx={paginationStyle(currentPage === index + 1)}
-                  onClick={() => handlePageChange(index + 1)}
-                >
-                  {index + 1}
-                </Box>
-              )
-            )}
-          </Flex>
-          <Flex>
-            <Box
-              sx={paginationStyle(
-                currentPage < Math.ceil(userData.items?.length / pageSize)
+          {userData && (
+            <Flex>
+              {Array.from(
+                { length: Math.ceil(userData.items?.length / pageSize) },
+                (_, index) => (
+                  <Box
+                    key={index}
+                    sx={paginationStyle(currentPage === index + 1)}
+                    onClick={() => handlePageChange(index + 1)}
+                  >
+                    {index + 1}
+                  </Box>
+                )
               )}
-              onClick={() => handlePageChange(currentPage + 1)}
-            >
-              <FaChevronRight />
-            </Box>
-          </Flex>
+            </Flex>
+          )}
+          {userData && (
+            <Flex>
+              <Box
+                sx={paginationStyle(
+                  currentPage < Math.ceil(userData.items?.length / pageSize)
+                )}
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                <FaChevronRight />
+              </Box>
+            </Flex>
+          )}
         </Flex>
       </Box>
     </Box>
@@ -146,7 +152,7 @@ const rowStyle = {
   fontSize: "14px",
   height: "56px",
   background: "#FFFFFF",
-  textAlign: "center",
+  textAlign: "start",
 
   // borderBottom: "1px solid #E8E9EB",
   color: "#5A6074",
@@ -158,7 +164,7 @@ const itemStyle = {
   fontWeight: "400",
   fontSize: "14px",
   lineHeight: "20px",
-  textAlign: "center",
+  textAlign: "start",
   /* identical to box height, or 143% */
   color: "#5A6074",
   overflow: "hidden",

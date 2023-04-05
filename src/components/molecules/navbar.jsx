@@ -5,7 +5,6 @@ import { Box, Text } from "rebass/styled-components";
 const Navbar = () => {
   return (
     <>
-      <Text>Navbar</Text>
       <Box
         sx={{
           backgroundColor: "white",
