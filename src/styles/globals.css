@@ -113,3 +113,19 @@ a {
     color-scheme: dark;
   }
 }
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("./fonts/opensans/opensans-regular.ttf") format("truetype");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("./fonts/opensans/opensans-semibold.ttf") format("truetype");
+  font-weight: bold;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+}
