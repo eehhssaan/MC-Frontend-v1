@@ -1,26 +1,35 @@
 import { Box } from "rebass/styled-components";
 import React, { useContext } from "react";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 // internal imports
 import { appContext } from "../../context/app.context";
 import LoginForm from "../molecules/loginForm";
 
 const Login = () => {
-  const { loginAdmin } = useContext(appContext);
+  const { loginAdmin, dispatch } = useContext(appContext);
+
   const router = useRouter();
 
   const onLoginSubmit = async ({ email, password }) => {
-    if (email && password) {
-      loginAdmin({ email, password })
-        .then((resp) => {
-          if (resp.ok) {
-            router.push("/dashboard");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    const cookieTimeOut = 365 * 5;
+
+    try {
+      if (email && password) {
+        const resp = await loginAdmin({ email, password });
+        if (resp.ok) {
+          const data = await resp.json();
+          dispatch({ type: "USER_LOGIN", payload: data });
+          Cookies.set("userInfo", JSON.stringify(data), {
+            expires: cookieTimeOut,
+          });
+
+          router.push("/dashboard");
+        }
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
