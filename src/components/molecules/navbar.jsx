@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { appContext } from "../../context/app.context";
 
 const Navbar = () => {
-  const { logoutAdmin } = useContext(appContext);
+  const { logoutAdmin, dispatch } = useContext(appContext);
   const [userName, setUserName] = useState("");
   const router = useRouter();
 
@@ -15,6 +15,8 @@ const Navbar = () => {
     logoutAdmin()
       .then((resp) => {
         if (resp.ok) {
+          dispatch({ type: "USER_LOGOUT" });
+          Cookies.remove("userInfo");
           router.push("/login");
         }
       })
