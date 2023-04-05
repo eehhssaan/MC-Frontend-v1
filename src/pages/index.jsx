@@ -1,14 +1,7 @@
 import Home from "../components/organisms/home";
-import Layout from "../components/organisms/layout";
 
 const HomePage = () => {
-  return (
-    <>
-      <Layout>
-        <Home />
-      </Layout>
-    </>
-  );
+  return <Home />;
 };
 
 export async function getStaticProps() {

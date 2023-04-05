@@ -1,8 +1,40 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Button from "../atoms/button";
-import { Box, Text } from "rebass/styled-components";
+import { Box } from "rebass/styled-components";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+
+import { appContext } from "../../context/app.context";
 
 const Navbar = () => {
+  const { logoutAdmin } = useContext(appContext);
+  const [userName, setUserName] = useState("");
+  const router = useRouter();
+
+  const handleLogout = () => {
+    logoutAdmin()
+      .then((resp) => {
+        if (resp.ok) {
+          router.push("/login");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleProfile = () => {
+    // this page does not exist as of now
+    router.push("/profile");
+  };
+
+  useEffect(() => {
+    if (Cookies.get("userInfo")) {
+      const user = JSON.parse(Cookies.get("userInfo"));
+      setUserName(user.name);
+    }
+  }, []);
+
   return (
     <>
       <Box
@@ -23,8 +55,9 @@ const Navbar = () => {
           color='white'
           border='1px solid #82889C'
           fontSize='14px'
+          // onClick={handleProfile}
         >
-          jerome_bell
+          {userName}
         </Button>
         <Button
           text='black'
@@ -35,6 +68,7 @@ const Navbar = () => {
           color='white'
           border='1px solid #82889C'
           fontSize='14px'
+          onClick={handleLogout}
         >
           Logout
         </Button>
