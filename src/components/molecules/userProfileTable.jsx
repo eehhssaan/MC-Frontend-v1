@@ -1,8 +1,10 @@
 import React from "react";
 import { Box, Flex, Text } from "rebass";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { CiCircleMore } from "react-icons/ci";
 
 const UserProfileTable = ({ userData }) => {
-  const pageSize = 5;
+  const pageSize = 10;
   const [currentPage, setCurrentPage] = React.useState(1);
 
   const handlePageChange = (pageNumber) => {
@@ -16,25 +18,21 @@ const UserProfileTable = ({ userData }) => {
     <Box
       sx={{
         boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-        width: "65vw",
+        width: "100%",
         borderRadius: "10px !important",
         overflow: "hidden !important",
       }}
     >
       <Box p={3} bg='#F3F4F6'>
         <Flex alignItems='center'>
-          {/* {userData.items &&
-            Object.keys(userData.items[0].item).map((key) => (
-              <Box flex={1} sx={itemStyle}>
-                {key}
-              </Box>
-            ))} */}
-
           <Box flex={1} sx={itemStyle}>
             First Name
           </Box>
           <Box flex={1} sx={itemStyle}>
             Last Name
+          </Box>
+          <Box flex={1} sx={itemStyle}>
+            Gender
           </Box>
           <Box flex={2} sx={itemStyle}>
             Email
@@ -45,7 +43,7 @@ const UserProfileTable = ({ userData }) => {
           <Box flex={1} sx={itemStyle}>
             Created At
           </Box>
-          <Box flex={2} sx={itemStyle}>
+          <Box flex={1} sx={itemStyle}>
             Created By
           </Box>
           <Box flex={1} sx={itemStyle}>
@@ -56,30 +54,34 @@ const UserProfileTable = ({ userData }) => {
       {userData.items?.slice(startIndex, endIndex).map(
         (e) => (
           <Flex key={e.item._id} sx={rowStyle}>
-            <Box flex={1} p={2} sx={itemStyle}>
+            <Box flex={1} sx={itemStyle}>
               {e.item.firstname}
             </Box>
-            <Box flex={1} p={2} sx={itemStyle}>
+            <Box flex={1} sx={itemStyle}>
               {e.item.lastname}
             </Box>
-            <Box flex={1} p={2} sx={itemStyle}>
+            <Box flex={1} sx={itemStyle}>
+              {e.item.gender}
+            </Box>
+            <Box flex={2} sx={itemStyle}>
               {e.item.email}
+            </Box>
+            <Box flex={1} sx={itemStyle}>
+              {e.item.phone}
             </Box>
             {/* <Box flex={2} sx={itemStyle}>
               {e.item}
             </Box> */}
-            <Box flex={1} sx={{ width: "12%" }}>
-              {e.item.phone}
+            <Box flex={1} sx={itemStyle}>
+              {new Date(e.createdAt).toLocaleDateString()}
             </Box>
-            <Box flex={1} sx={{ width: "14%" }}>
-              {new Date(e.item.createdAt).toLocaleDateString()}
-            </Box>
-            <Box flex={2} sx={{ width: "12%" }}>
+
+            <Box flex={1} sx={itemStyle}>
               {e.item.createdBy}
             </Box>
 
             <Box flex={1} sx={{ width: "10%" }}>
-              Edit
+              <CiCircleMore />
             </Box>
           </Flex>
         )
@@ -96,6 +98,14 @@ const UserProfileTable = ({ userData }) => {
             {userData.items?.length}
           </Text>
           <Flex>
+            <Box
+              sx={paginationStyle(currentPage > 1)}
+              onClick={() => handlePageChange(currentPage - 1)}
+            >
+              <FaChevronLeft />
+            </Box>
+          </Flex>
+          <Flex>
             {Array.from(
               { length: Math.ceil(userData.items?.length / pageSize) },
               (_, index) => (
@@ -108,6 +118,16 @@ const UserProfileTable = ({ userData }) => {
                 </Box>
               )
             )}
+          </Flex>
+          <Flex>
+            <Box
+              sx={paginationStyle(
+                currentPage < Math.ceil(userData.items?.length / pageSize)
+              )}
+              onClick={() => handlePageChange(currentPage + 1)}
+            >
+              <FaChevronRight />
+            </Box>
           </Flex>
         </Flex>
       </Box>
@@ -141,6 +161,7 @@ const itemStyle = {
   textAlign: "center",
   /* identical to box height, or 143% */
   color: "#5A6074",
+  overflow: "hidden",
 };
 
 const paginationStyle = (active) => ({
@@ -155,6 +176,8 @@ const paginationStyle = (active) => ({
   color: active ? "white" : "black",
   margin: "0 4px",
   cursor: "pointer",
+  border: "1px solid #E8E9EB",
+  borderRadius: "4px",
 });
 
 export default UserProfileTable;
